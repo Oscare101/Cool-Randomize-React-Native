@@ -10,8 +10,26 @@ import {
 } from 'react-native'
 
 export default function NumberScreen({ navigation }) {
-  const [minNumb, setMinNub] = useState()
-  const [maxNumb, setMaxNub] = useState()
+  const [minNumb, setMinNumb] = useState()
+  const [maxNumb, setMaxNumb] = useState()
+  const [random, setRandom] = useState('')
+
+  function StartRandom(min, max) {
+    if (min && max) {
+      if (min == max) {
+        setRandom('Yout minimum number and maximum number must be different')
+      } else if (min > max) {
+        setRandom(
+          'Yout minimum number must be smaller than your maximum number '
+        )
+      } else {
+        let c = Math.floor(Math.random() * (+max - +min + 1) + +min)
+        setRandom(c)
+      }
+    } else {
+      setRandom('Input your numbers')
+    }
+  }
 
   return (
     <TouchableWithoutFeedback
@@ -29,7 +47,7 @@ export default function NumberScreen({ navigation }) {
               autoCorrect={false}
               blurOnSubmit
               style={styles.input}
-              onChangeText={(num) => setMinNub(num.replace(/[^0-9]/g, ''))}
+              onChangeText={(num) => setMinNumb(num.replace(/[^0-9]/g, ''))}
               value={minNumb}
             />
           </View>
@@ -41,7 +59,7 @@ export default function NumberScreen({ navigation }) {
               autoCorrect={false}
               blurOnSubmit
               style={styles.input}
-              onChangeText={(num) => setMaxNub(num.replace(/[^0-9]/g, ''))}
+              onChangeText={(num) => setMaxNumb(num.replace(/[^0-9]/g, ''))}
               value={maxNumb}
             />
           </View>
@@ -59,6 +77,11 @@ export default function NumberScreen({ navigation }) {
               alignSelf: 'center',
               width: '40%',
             }}
+            onPress={() => {
+              setMinNumb('')
+              setMaxNumb('')
+              setRandom('')
+            }}
           >
             <View style={styles.randButton}>
               <Text style={styles.clearText}>Clear</Text>
@@ -69,11 +92,17 @@ export default function NumberScreen({ navigation }) {
               alignSelf: 'center',
               width: '40%',
             }}
+            onPress={() => {
+              StartRandom(minNumb, maxNumb)
+            }}
           >
             <View style={styles.randButton}>
               <Text style={styles.randText}>Randomize</Text>
             </View>
           </TouchableOpacity>
+        </View>
+        <View style={styles.randowBlock}>
+          <Text style={styles.randomText}>{random}</Text>
         </View>
       </View>
     </TouchableWithoutFeedback>
@@ -124,5 +153,14 @@ const styles = StyleSheet.create({
   randText: {
     color: '#0377EA',
     fontSize: 20,
+  },
+  randowBlock: {
+    marginTop: 50,
+    width: '60%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  randomText: {
+    fontSize: 30,
   },
 })
