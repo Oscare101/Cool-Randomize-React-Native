@@ -6,8 +6,8 @@ import {
   TextInput,
   TouchableWithoutFeedback,
   Keyboard,
+  TouchableOpacity,
 } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export default function NumberScreen({ navigation }) {
   const [minNumb, setMinNub] = useState()
@@ -20,41 +20,58 @@ export default function NumberScreen({ navigation }) {
       }}
     >
       <View style={styles.screen}>
-        <View style={styles.upBlock}>
-          <View style={styles.inputRow}>
-            <View style={styles.inputCol}>
-              <Text style={styles.inputText}>Minimum Number</Text>
-              <TextInput
-                keyboardType="number-pad"
-                autoCapitalize="none"
-                autoCorrect={false}
-                blurOnSubmit
-                style={styles.input}
-                onChangeText={(num) => setMinNub(num.replace(/[^0-9]/g, ''))}
-                value={minNumb}
-              />
-            </View>
-            <View style={styles.inputCol}>
-              <Text style={styles.inputText}>Maximum Number</Text>
-              <TextInput
-                keyboardType="number-pad"
-                autoCapitalize="none"
-                autoCorrect={false}
-                blurOnSubmit
-                style={styles.input}
-                onChangeText={(num) => setMaxNub(num.replace(/[^0-9]/g, ''))}
-                value={maxNumb}
-              />
-            </View>
+        <View style={styles.inputRow}>
+          <View style={styles.inputCol}>
+            <Text style={styles.inputText}>Minimum Number</Text>
+            <TextInput
+              keyboardType="number-pad"
+              autoCapitalize="none"
+              autoCorrect={false}
+              blurOnSubmit
+              style={styles.input}
+              onChangeText={(num) => setMinNub(num.replace(/[^0-9]/g, ''))}
+              value={minNumb}
+            />
           </View>
+          <View style={styles.inputCol}>
+            <Text style={styles.inputText}>Maximum Number</Text>
+            <TextInput
+              keyboardType="number-pad"
+              autoCapitalize="none"
+              autoCorrect={false}
+              blurOnSubmit
+              style={styles.input}
+              onChangeText={(num) => setMaxNub(num.replace(/[^0-9]/g, ''))}
+              value={maxNumb}
+            />
+          </View>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            display: 'flex',
+            justifyContent: 'space-around',
+            width: '100%',
+          }}
+        >
           <TouchableOpacity
             style={{
               alignSelf: 'center',
-              width: '100%',
+              width: '40%',
             }}
           >
             <View style={styles.randButton}>
-              <Text>Randomize</Text>
+              <Text style={styles.clearText}>Clear</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              alignSelf: 'center',
+              width: '40%',
+            }}
+          >
+            <View style={styles.randButton}>
+              <Text style={styles.randText}>Randomize</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -66,14 +83,11 @@ export default function NumberScreen({ navigation }) {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
     backgroundColor: '#fff',
   },
-  upBlock: {
-    flexDirection: 'column',
-    width: '100%',
-  },
+
   inputRow: {
     flexDirection: 'row',
     width: '90%',
@@ -84,23 +98,31 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   inputText: {
-    fontSize: 20,
+    fontSize: 14,
+    alignSelf: 'center',
   },
   input: {
     borderBottomWidth: 1,
-    borderColor: '#000',
+    borderColor: '#999',
     padding: 5,
     textAlign: 'center',
     fontSize: 28,
     width: 170,
-    backgroundColor: '#ccc',
+    backgroundColor: '#fff',
   },
   randButton: {
-    backgroundColor: '#ccc',
     width: '90%',
     alignSelf: 'center',
     margin: 10,
     alignItems: 'center',
     padding: 10,
+  },
+  clearText: {
+    color: '#FB3B35',
+    fontSize: 20,
+  },
+  randText: {
+    color: '#0377EA',
+    fontSize: 20,
   },
 })
